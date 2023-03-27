@@ -55,9 +55,47 @@ namespace GestoreEventi
 
         public override string ToString()
         {
-            var data = Data.ToString("d");
-            string res = $"{Data} - {Titolo}";
+            var data = Data.ToString("dd/MM/yyyy"); ;
+            string res = $"{data} - {Titolo}";
             return res;
+        }
+    }
+
+    public class Conferenza : Evento
+    {
+        public Conferenza(string titolo, string data, string maxCapienza, string relatore, string prezzo) : base(titolo, data, maxCapienza)
+        {
+            if (string.IsNullOrEmpty(relatore))
+            {
+                throw new Exception("Il titolo non può essere vuoto.");
+            }
+
+            Relatore = relatore;
+            if (string.IsNullOrEmpty(prezzo))
+            {
+                throw new Exception("Il prezzo non può essere vuoto.");
+            }
+            double intPrice;
+            if (!double.TryParse(prezzo, out intPrice))
+            {
+                throw new Exception("Il prezzo non è stato inserito correttamente");
+            }
+            Price = intPrice;
+        }
+
+        public string Relatore { get; set; }
+        public double Price { get; set; }
+
+        public string PrezzoFormattato()
+        {
+            var priceForm = Price.ToString("0.00");
+            return priceForm;
+        }
+
+        public override string ToString()
+        {
+            var priceFor = Price.ToString("0.00");
+            return $"{base.Data.ToString("dd/MM/yyyy")} - {base.Titolo} - {Relatore} - {priceFor}$";
         }
     }
 }
