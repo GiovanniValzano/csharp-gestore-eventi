@@ -35,21 +35,21 @@ namespace GestoreEventi
             return res;
         }
 
-        public int GetProgramLenght(ProgrammaEventi programma)
+        public int GetProgramLenght()
         {
-            return programma.Eventi.Count;
+            return Eventi.Count;
         }
 
-        public static void ClearProgramList(ProgrammaEventi programma)
+        public void ClearProgramList()
         {
-            programma.Eventi.Clear();
+            Eventi.Clear();
         }
 
-        public static void GetStringProgramma(ProgrammaEventi programma)
+        public void GetStringProgramma()
         {
-            Console.WriteLine($"Titolo del programma: {programma.Titolo}");
+            Console.WriteLine($"Titolo del programma: {Titolo}");
             Console.WriteLine();
-            foreach (Evento evento in programma.Eventi)
+            foreach (Evento evento in Eventi)
             {
                 string res = evento.ToString();
                 Console.WriteLine(res.PadLeft(res.Length + 5));

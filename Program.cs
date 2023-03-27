@@ -21,7 +21,7 @@ try
     var siNo = Console.ReadLine();
     if (siNo == "si")
     {
-        Prenotazione(eventoSelezionato);
+        eventoSelezionato.Prenotazione();
     }
     if (eventoSelezionato.NumPrenotazioni > 0)
     {
@@ -29,7 +29,7 @@ try
         var siNo1 = Console.ReadLine();
         if (siNo1 == "si")
         {
-            Disdetta(eventoSelezionato);
+            eventoSelezionato.Disdetta();
         }
     }
 }
@@ -121,9 +121,9 @@ while (!conferenzaIns)
 
 if (programma.Eventi.Count > 0)
 {
-    Console.WriteLine($"Numero di eventi inseriti: {programma.GetProgramLenght(programma)}");
+    Console.WriteLine($"Numero di eventi inseriti: {programma.GetProgramLenght()}");
     Console.WriteLine();
-    ProgrammaEventi.GetStringProgramma(programma);
+    programma.GetStringProgramma();
     Console.WriteLine();
     Console.WriteLine("Inserire una data per filtrare gli eventi:");
     var dataInserita = Console.ReadLine();
@@ -153,41 +153,3 @@ if (programma.Eventi.Count > 0)
 }
 
 
-void Prenotazione(Evento evento)
-{
-    Console.WriteLine("Indicare il numero di posti da voler prenotare:");
-    var postiPrenotati = Console.ReadLine();
-    if (int.TryParse(postiPrenotati, out int result))
-    {
-        if (result < evento.MaxCapienza)
-        {
-            evento.PrenotaPosti(result);
-            Console.WriteLine($"Posti prenotati: {result}");
-            Console.WriteLine($"Posti ancora disponibili: {evento.MaxCapienza - evento.NumPrenotazioni}");
-        }
-        else
-        {
-            Console.WriteLine("Numero di posti non disponibile");
-        }
-    }
-    else
-    {
-        Console.WriteLine("Valore inserito non valido.");
-    }
-}
-
-void Disdetta(Evento evento)
-{
-    Console.WriteLine("Indicare il numero di posti da voler disdire:");
-    var postiDisdetti = Console.ReadLine();
-    if (int.TryParse(postiDisdetti, out int result))
-    {
-        evento.DisdiciPosti(result);
-        Console.WriteLine($"Posti disdetti: {result}");
-        Console.WriteLine($"Posti ancora disponibili: {evento.MaxCapienza - evento.NumPrenotazioni}");
-    }
-    else
-    {
-        Console.WriteLine("Valore inserito non valido.");
-    }
-}

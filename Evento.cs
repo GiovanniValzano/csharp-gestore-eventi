@@ -59,6 +59,45 @@ namespace GestoreEventi
             string res = $"{data} - {Titolo}";
             return res;
         }
+        public void Prenotazione()
+        {
+            Console.WriteLine("Indicare il numero di posti da voler prenotare:");
+            var postiPrenotati = Console.ReadLine();
+            if (int.TryParse(postiPrenotati, out int result))
+            {
+                if (result < MaxCapienza)
+                {
+                    PrenotaPosti(result);
+                    Console.WriteLine($"Posti prenotati: {result}");
+                    Console.WriteLine($"Posti ancora disponibili: {MaxCapienza - NumPrenotazioni}");
+                }
+                else
+                {
+                    Console.WriteLine("Numero di posti non disponibile");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Valore inserito non valido.");
+            }
+        }
+        public void Disdetta()
+        {
+            Console.WriteLine("Indicare il numero di posti da voler disdire:");
+            var postiDisdetti = Console.ReadLine();
+            if (int.TryParse(postiDisdetti, out int result))
+            {
+                DisdiciPosti(result);
+                Console.WriteLine($"Posti disdetti: {result}");
+                Console.WriteLine($"Posti ancora disponibili: {MaxCapienza - NumPrenotazioni}");
+            }
+            else
+            {
+                Console.WriteLine("Valore inserito non valido.");
+            }
+        }
+
+
     }
 
     public class Conferenza : Evento
@@ -94,7 +133,7 @@ namespace GestoreEventi
 
         public override string ToString()
         {
-            var priceFor = Price.ToString("0.00");
+            var priceFor = PrezzoFormattato;
             return $"{base.Data.ToString("dd/MM/yyyy")} - {base.Titolo} - {Relatore} - {priceFor}$";
         }
     }
